@@ -1,0 +1,54 @@
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
+  font-style: italic;
+}
+
+.subtext {
+    font-size: 90%; 
+    color: #6c757d;
+  }
+
+.column {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+
+    &.align-center {
+        align-items: center;
+    }
+
+    &.align-right {
+        align-items: flex-end;
+    }
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+
+    &.align-center {
+        justify-content: center;
+    }
+
+    &.align-right {
+        justify-content: flex-end;
+    }
+}

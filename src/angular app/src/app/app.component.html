@@ -1,0 +1,26 @@
+<div class="column">
+  <div class="column align-center">
+    <div class="row">
+      <h4>Angular Dynamics365 <small>web resource embedded</small></h4>
+    </div>
+    <div class="row subtext ">
+      This is a sample pilot project, integrated with Material 3 styling. This choice leads to an updated configuration
+      of the 'webpack.config.js' file, which would otherwise not be necessary.
+      See the comments in the configuration file "webpack.config.js".
+    </div>
+  </div>
+  <div class="column align-center">
+    <div class="row">
+      <app-search />
+    </div>
+    <div class="row">
+      <button type="button" (click)="showCmp2($event)" mat-flat-button>Click me</button>
+    </div>
+  </div>
+
+  @if(this.show){
+  <div class="row bg">
+    <span>Testing if condition pattern and <span class="style">nested style.</span> </span>
+  </div>
+  }
+</div>
