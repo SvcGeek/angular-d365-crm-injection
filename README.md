@@ -1,37 +1,38 @@
 # Angular-d365-crm-injection
-This GitHub-hosted project showcases how to create and develop an Angular application injected in D365 as web resource. It demonstrates the process of using Webpack to bundle CSS and JavaScript into a single file, allowing for the seamless loading only two web resources. The guide is free and includes steps on integrating these resources into a Dynamics 365 form
+This GitHub project demonstrates how to create and develop an Angular application injected into Dynamics 365 as a web resource. It details the process of using Webpack to bundle CSS and JavaScript into a single file, ensuring that only two web resources need to be loaded. The guide is comprehensive and provides instructions on how to integrate these resources into a Dynamics 365 form.
 
 # Summary
 - [New or Updating Projects](#newupdate-project-steps)
 - [Run Project](#how-to-run-this-project)
 
-# New/Update Project steps:
+#Setting Up or Updating Projects:
 
 ## Step 1
-Run angular cli command to create a new progject. Pass your name application insead of 'name'.
+Create a New Project: Use the Angular CLI to generate a new project. Replace *'your-project-name'* with your desired project name.
 ```
-ng new your-progeject name
+ng new your-progeject your-project-name
 ```
 
 ## Step 2
-If app has already run ```npx i``` remove 'node_module' folder and 'package-lock.json' file
+If the project already exists: remove the node_modules folder and the package-lock.json file before continuing
 
 ## Step 3
-Install webpack, webpack-cli, style-loader and css-loader using the following command ```npm install webpack webpack-cli style-loader css-loader --save-dev```
+Install webpack, webpack-cli, style-loader and css-loader with the following command
+```npm install webpack webpack-cli style-loader css-loader --save-dev```
 
 ## Step 4
-Remove all default data from ```app.component.html``` and set your own content, like [this](./src/angular%20app/src/app/app.component.html).
+Customize *app.component.html*: clear any default content from app.component.html and insert your own, like [this](./src/angular%20app/src/app/app.component.html).
 
 ## Step 5 
-Create ```webpack.config.js``` file in root folder, paste this configuration update the entry section with the path of your dist file generated post running of ```ng build --output-hashing=none``` (see [Step 8 to configure parameterless command](#step-8) ) command
+Create Webpack Configuration: create a *webpack.config.js* file in the root folder. Update the entry section with the path to the dist file generated after running the ```ng build --output-hashing=none``` (see [Step 8 to configure parameterless command](#step-8)
 
 	module.exports = {
 		mode: 'production',
 		entry: {
 			"bundle.js": [
-				path.resolve(__dirname, "./src/angular app/dist/angular-d365-crm-injection/browser/main.js"),
-				path.resolve(__dirname, "./src/angular app/dist/angular-d365-crm-injection/browser/polyfills.js"),
-				path.resolve(__dirname, "./src/angular app/dist/angular-d365-crm-injection/browser/styles.css"),
+				path.resolve(__dirname, "./src/angular app/dist/your-project-name/browser/main.js"),
+				path.resolve(__dirname, "./src/angular app/dist/your-project-name/browser/polyfills.js"),
+				path.resolve(__dirname, "./src/angular app/dist/your-project-name/browser/styles.css"),
 				//some other paths...
 			],
 		},
@@ -48,12 +49,13 @@ Create ```webpack.config.js``` file in root folder, paste this configuration upd
 			],
 		},
 	};
-Note: **This repo dist folder is under ./src/angular app/dist/angular-d365-crm-injection/browser**, check your root path!
+Note: **This dist folder is located at ./src/angular app/dist/your-project-name/browser**, check your root path!
 
 ## Step 6
-Clear your app and update ```Index.html``` deleting *base <href="/">*, then add in head tag **<script src="https://your-project-name.crm4.dynamics.com/WebResources/bundle-logical-name" type="module"crossorigin="anonymous"></script>**
+Remove the base <href="/"> tag from *index.html* and add the following line inside the <head> tag: 
+```<script src="https://your-project-name.crm4.dynamics.com/WebResources/bundle-logical-name" type="module"crossorigin="anonymous"></script>```
 
-if you desire to run angular app by injection in html code, remove **<app-root></app-root>** tag, then updated ```main.js``` file with this following code:
+EXTRA: If you want to run the Angular app via HTML injection, update the ***main.js*** file with the following code:
 			 
 		document.addEventListener('DOMContentLoaded', () => {			  
 		const appRoot = document.createElement('app-root');
@@ -63,46 +65,46 @@ if you desire to run angular app by injection in html code, remove **<app-root><
 			.catch((err) => console.error('Angular Bootstrap error:', err));
 		});
 			 
-NOTE: **If your selector prefix is different, make sure you adjust <app-root/> tag with yours main selector content app.**	
+**NOTE**: your selector prefix is different, ensure you update the tag with your specific main selector.	
 
 ## Step 7 
-Set your app, dependency and styles and develop your app. In the end, you only need to build, update bundle.js file by webpack command and upload files.
-Follow these steps to build angular proj and cerate bundle.js file.
+Set up your dependencies and styles, and begin development. Once done, build the project, update the bundle.js file using Webpack, and follow these steps to create and upload the bundle.
 
 ## Step 8
-Build app with command  ```ng build --output-hashing=none``` for default configuration.
+```ng build --output-hashing=none```
 
-I suggest to update angualar.json in node architect:build:configurations:production setting outputHashing to 'none' as shown below and use ```ng build``` command to build.
+I recommend updating **angular.json** under ***architect:build:configurations:production***, setting *outputHashing* to *'none'* as shown below, and then using the regular *ng build* command.
+Tip: Angular typically appends a hash to files like main.js. This command disables that behavior. Always verify the contents of the dist folder.
 
 ![Parameterless config](./img/step8.png) 
 
-Tipi: **PS: normally, angular attachs hash below main.js and other scripts, this command remove this setting. Check always the files in dist folder!**
-
 ## Step 9
-Run ```npx webpack --config webpack.config.js```
+```npx webpack --config webpack.config.js```
 
-Keep in Mind: ** normally, angular attachs hash below main.js and other scripts if you don't disable them: if webpack will give you an error, please check files in dist folder.**
+Keep in mind: if Webpack throws errors, double-check the contents of the dist folder, especially for files like *main.js* that may still contain hashes if output hashing wasn't disabled correctly.
 
 ## Step 10
-Check ```index.html``: [the file](./src/angular%20app/src/index.html) contains a not valid link boundle. Fix it with your data. Angular will copy it in dist folder; after the build delete always all extra scripts and styles generated by angular.
-Tip: **Don't remove styles in <style>[...]</style> tag**
+The [***index.html***](./src/angular%20app/src/index.html) file may contain invalid bundle links. 
+Update these with your correct paths.
+After building, Angular will copy it to the dist folder. Always delete extra scripts and styles generated by Angular, only ***bundle.js*** script is needed.
+**Tip**: Don’t remove inline styles inside <style>...</style> tags.
 
 ## Step 11
-Open your solution in PowerApps, then add or update you files in "Web Resource" section, save and publish.
+Deploy the Resources in PowerApps: open your solution in PowerApps, add or update the web resources and save.
 - create a new web resource ![New](./img/step11_new.png)
 - then compile form and choose your *index.html* dist folder and save. ![angular prod file](./img/step11_new_sidebar.png)
 - Create a second resource for bundle.js, add file and a save.
-	
 
 ## Step 12
-Add in your table form the web resource, then save and publish.
+Add the Web Resource to Your Form: add the web resource to the desired form, then save and publish.
+
 - select and publish both files ![Ready to publish](./img/step12_select_publish.png)
-- when the process will end, click on html resource then, under the "Advanced option", you will find the link and will be redirected to your app.
-![published](/img/step12.png)
-- great! ![Good Job!](/img/step12_check.png)
+- Once published, navigate to the HTML web resource, and under the "Advanced" options, you'll find the resource link. You can use this to access your app. ![published](/img/step12.png)
+- Enjoy your Angular-D365 integration!!
+  ![Good Job!](/img/step12_check.png)
 
 # How to run this project:
-- Has installed Node.js
-- Open  .angular in terminal and run ```npm i```	
-- Run  ```ng serve``` to see on *http:localhost:4200* the app and enjoy!
+- Ensure [Node.js(https://nodejs.org/en)] is installed.
+- Open the project folder in the terminal and run ```npm i```	
+-  To start the app on *http://localhost:4200*, run  ```ng serve```
 
