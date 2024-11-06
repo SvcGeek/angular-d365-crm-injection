@@ -5,7 +5,7 @@ This GitHub project demonstrates how to create and develop an Angular applicatio
 - [New or Updating Projects](#newupdate-project-steps)
 - [Run Project](#how-to-run-this-project)
 
-#Setting Up or Updating Projects:
+# Setting Up or Updating Projects:
 
 ## Step 1
 Create a New Project: Use the Angular CLI to generate a new project. Replace *'your-project-name'* with your desired project name.
